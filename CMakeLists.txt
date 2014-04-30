@@ -7,5 +7,9 @@ link_directories(lib)
 
 
 add_subdirectory(lib)
-
 add_subdirectory(test)
+
+
+add_custom_target(testdir)
+
+add_dependencies(testdir test)
