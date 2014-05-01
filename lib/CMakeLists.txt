@@ -6,8 +6,10 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # target_link_libraries(TestLibrary sfml-system)
 
 add_subdirectory(framework)
+add_subdirectory(gl)
 
 add_library(flake SHARED empty.cpp)
 target_link_libraries(flake
     FlakeDisplay
+    Gl
     )

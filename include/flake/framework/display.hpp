@@ -1,6 +1,9 @@
 #ifndef FLAKE_FRAMEWORK_HPP
 #define FLAKE_FRAMEWORK_HPP
-#include<SFML/Window.hpp>
+
+#include <SFML/Window.hpp>
+#include "flake/gl/context.hpp"
+
 namespace flake
 {
     class Display
@@ -28,6 +31,7 @@ namespace flake
         std::string winName;
         int winSizeX,winSizeY;
         sf::Window& win;
+        gl::Context* glc;
     };
 }
 

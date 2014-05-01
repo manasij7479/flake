@@ -1,7 +1,13 @@
 #include "flake/framework/display.hpp"
+#include "flake/gl/glewcontext.hpp"
+
+#include<iostream>
+
+
 namespace flake
 {
-    Display::Display(std::string n,int x,int y):win(*new sf::Window(sf::VideoMode(x,y,32),n))
+    Display::Display(std::string n,int x,int y)
+        :win(*new sf::Window(sf::VideoMode(x,y,32),n))
     {
 //         auto v = [](){std::cerr<<"Default Function.\n";};
 //         auto v2i=[](int,int){std::cerr<<"Default Function.\n";};
@@ -15,7 +21,9 @@ namespace flake
         winSizeX=x;
         winSizeY=y;
         
-//         GlewInit();
+        glc=new gl::GlewContext();
+        glc->init();
+        
         
     }
 //     int Framework::operator()()

@@ -1,0 +1,12 @@
+draw GL_TRIANGLES
+pos 3 2
+0 0
+0.5 0
+0.5 0.5
+col 3 4
+1 0 0 0
+0 1 0 0
+0 0 1 0
+index 3
+0 1 2
+
