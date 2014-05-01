@@ -1,7 +1,9 @@
-#include "TestLibrary.hpp"
+#include "flake/framework/display.hpp"
 
 int main()
 {
-    test::Foo x;
-    x.bar();
+    flake::Display display("Manasij",800,600);
+    while(display.update())
+        display.placeHolderEventHandler();
+    return 0;
 }
