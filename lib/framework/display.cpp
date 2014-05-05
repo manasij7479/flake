@@ -63,13 +63,12 @@ namespace flake
         win.display();
         return 1;
     }
-    void Display::placeHolderEventHandler()
+    void Display::placeHolderEventHandler(std::function<void(sf::Event)> f)
     {
         sf::Event eve;
         while(win.pollEvent(eve))
         {
-            if(eve.type==sf::Event::Closed)
-                win.close();
+            f(eve);
         }   
     }
 

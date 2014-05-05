@@ -1,4 +1,4 @@
-#version 420
+#version 130
 uniform mat4 camera;
 in vec2 pos;
 in vec4 col;

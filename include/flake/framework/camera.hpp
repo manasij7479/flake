@@ -28,6 +28,14 @@ namespace flake
         {
             return proj*view;
         }
+        void setView(int x,int y)
+        {
+            view=generateView(x,y);
+        }
+        void setSize(int x,int y)
+        {
+            proj=generateProj(x,y);
+        }
     private:
         glm::mat4 generateProj(float x,float y)
         {
@@ -37,10 +45,10 @@ namespace flake
         {
             return glm::translate(glm::mat4(1.0f), glm::vec3(x, y,0));
         }
-        int sizex;
-        int sizey;
-        int transx;
-        int transy;
+//         int sizex;
+//         int sizey;
+//         int transx;
+//         int transy;
         glm::mat4 view;
         glm::mat4 proj;
     };
