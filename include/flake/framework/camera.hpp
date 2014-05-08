@@ -19,7 +19,7 @@ namespace flake
     class CenteredOrtho2D:public Camera
     {
     public:
-        CenteredOrtho2D(int sx,int sy,int tx=0,int ty=0)
+        CenteredOrtho2D(int sx,int sy,int tx=0,int ty=0):sizex(sx),sizey(sy)
         {
             view=generateView(tx,ty);
             proj=generateProj(sx,sy);
@@ -36,6 +36,12 @@ namespace flake
         {
             proj=generateProj(x,y);
         }
+        void fix_input(int &x,int& y)
+        {
+            y= sizey-y;
+            x-=sizex/2;
+            y-=sizey/2;
+        }
     private:
         glm::mat4 generateProj(float x,float y)
         {
@@ -45,8 +51,8 @@ namespace flake
         {
             return glm::translate(glm::mat4(1.0f), glm::vec3(x, y,0));
         }
-//         int sizex;
-//         int sizey;
+        int sizex;
+        int sizey;
 //         int transx;
 //         int transy;
         glm::mat4 view;
