@@ -1,28 +1,10 @@
 #ifndef FLAKE_GL_MESH_HPP
 #define FLAKE_GL_MESH_HPP
-#include "program.h"
+#include "program.hpp"
 #include <vector>
 #include <map>
 namespace flake
 {
-// 	class OldMesh
-// 	{
-// 	public:
-// 		OldMesh(std::string dataf,std::string vsf,std::string fsf);//File names
-// 		OldMesh(std::string dataf,Program* prog_);
-// 		void draw();
-// 		Program* getProgram()
-// 		{
-// 			return prog;
-// 		}
-// 		~OldMesh(){delete prog;};
-// 	private:
-// 		Program* prog;
-// 		GLuint vao;
-// 		std::map<std::string,GLuint> vbomap;
-// 		GLenum drawmode;
-// 		int isize;
-// 	};
 	namespace gl
 	{
 		template<typename T>

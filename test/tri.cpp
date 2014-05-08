@@ -1,7 +1,6 @@
 #include "flake/framework/display.hpp"
 #include "flake/framework/camera.hpp"
-#include "oldmesh.h"
-#include "flake/gl/mesh.h"
+#include "flake/gl/mesh.hpp"
 #include <iostream>
 #include <fstream>
 flake::gl::Mesh* getMeshFromFile(std::string dataf,std::string v,std::string f)

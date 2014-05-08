@@ -1,6 +1,6 @@
 #ifndef MM_PROGRAM
 #define MM_PROGRAM
-#include "shader.h"
+#include "shader.hpp"
 #include <vector>
 #include <type_traits>
 #include <glm/glm.hpp>  

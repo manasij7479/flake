@@ -1,4 +1,4 @@
-#include "flake/gl/program.h"
+#include "flake/gl/program.hpp"
 #include <string>
 #include <stdexcept>
 namespace flake

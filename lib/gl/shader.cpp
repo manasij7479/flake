@@ -1,4 +1,4 @@
-#include "flake/gl/shader.h"
+#include "flake/gl/shader.hpp"
 #include <stdexcept>
 #include <fstream>
 #include <sstream>
