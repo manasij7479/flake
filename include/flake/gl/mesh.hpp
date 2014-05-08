@@ -1,23 +1,13 @@
 #ifndef FLAKE_GL_MESH_HPP
 #define FLAKE_GL_MESH_HPP
 #include "program.hpp"
+#include "buffer.hpp"
 #include <vector>
 #include <map>
 namespace flake
 {
 	namespace gl
 	{
-		template<typename T>
-		class Buffer
-		{
-		public:
-			Buffer(const std::string n,const std::vector<T>& dat,int dim)
-				:name(n),data(dat),dimension(dim){};
-			std::string name;
-			std::vector<T> data;
-			int dimension;
-		};
-		
 		class Mesh
 		{
 		public:
