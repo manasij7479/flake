@@ -14,12 +14,14 @@ int main()
     glClearColor(1,1,1,1);
     
 //     mesh->getProgram()->uniformMat4(c.getMatrix(),"camera");
-//     int lastx=0,lasty=0;
+	int oldx=0,oldy=0;
     while(f.update())
     {
         glClear(GL_COLOR_BUFFER_BIT);
         mesh->getProgram()->uniformMat4(cam.getMatrix(),"camera");
         mesh->draw();
+		
+		
         auto callback=[&](sf::Event eve)
         {
             if(eve.type==sf::Event::Closed)
@@ -34,9 +36,37 @@ int main()
                     std::cout << "the right button was pressed" << std::endl;
                     std::cout << "mouse x: " <<mx<< std::endl;
                     std::cout << "mouse y: " <<my<< std::endl;
-                    
                 }
+                
             }
+            else if (eve.type==sf::Event::MouseMoved)
+			{
+				int mx=eve.mouseMove.x;
+                int my=eve.mouseMove.y;
+                cam.fix_input(mx,my);
+				
+				if(oldx==0 && oldy==0)
+				{
+					oldx=mx;
+					oldy=my;
+					mx=0;
+					my=0;
+				}
+				else
+				{
+					mx=mx-oldx;
+					my=my-oldy;
+					oldx=oldx+mx;
+					oldy=oldy+my;
+				}
+				
+                if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				{
+					std::cout<<"Moved to: "<<mx<<' '<<my<<std::endl;
+					cam.shiftView(mx,my);
+				}
+				
+			}
         };
         
         f.placeHolderEventHandler(callback);
