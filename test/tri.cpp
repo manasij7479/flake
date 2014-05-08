@@ -15,9 +15,12 @@ int main()
     
 //     mesh->getProgram()->uniformMat4(c.getMatrix(),"camera");
 	int oldx=0,oldy=0;
+	float scale=1;
+	int percent=5;
     while(f.update())
     {
         glClear(GL_COLOR_BUFFER_BIT);
+		
         mesh->getProgram()->uniformMat4(cam.getMatrix(),"camera");
         mesh->draw();
 		
@@ -26,19 +29,19 @@ int main()
         {
             if(eve.type==sf::Event::Closed)
                 f.close();
-            if (eve.type == sf::Event::MouseButtonPressed)
-            {
-                if (eve.mouseButton.button == sf::Mouse::Left)
-                {
-                    int mx=eve.mouseButton.x;
-                    int my=eve.mouseButton.y;
-                    cam.fix_input(mx,my);
-                    std::cout << "the right button was pressed" << std::endl;
-                    std::cout << "mouse x: " <<mx<< std::endl;
-                    std::cout << "mouse y: " <<my<< std::endl;
-                }
-                
-            }
+//             if (eve.type == sf::Event::MouseButtonPressed)
+//             {
+//                 if (eve.mouseButton.button == sf::Mouse::Left)
+//                 {
+//                     int mx=eve.mouseButton.x;
+//                     int my=eve.mouseButton.y;
+//                     cam.fix_input(mx,my);
+//                     std::cout << "the right button was pressed" << std::endl;
+//                     std::cout << "mouse x: " <<mx<< std::endl;
+//                     std::cout << "mouse y: " <<my<< std::endl;
+//                 }
+//                 
+//             }
             else if (eve.type==sf::Event::MouseMoved)
 			{
 				int mx=eve.mouseMove.x;
@@ -54,18 +57,35 @@ int main()
 				}
 				else
 				{
-					mx=mx-oldx;
-					my=my-oldy;
-					oldx=oldx+mx;
-					oldy=oldy+my;
+					mx-=oldx;
+					my-=oldy;
+					oldx+=mx;
+					oldy+=my;
 				}
 				
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
 					std::cout<<"Moved to: "<<mx<<' '<<my<<std::endl;
-					cam.shiftView(mx,my);
+					cam.shiftView(mx/scale,my/scale);
 				}
 				
+			}
+			else if (eve.type == sf::Event::MouseWheelMoved)
+			{
+				int mx=eve.mouseWheel.x;
+				int my=eve.mouseWheel.y;
+				int md=eve.mouseWheel.delta;
+				
+				cam.fix_input(mx,my);
+				cam.zoom(md*percent);
+				scale+=(scale*md*percent/100);
+				
+// 				cam.shiftView(md*mx*percent/100,md*my*percent/100);
+				
+// 				std::cout << "wheel movement: " <<md<< std::endl;
+// 				std::cout << "mouse x: " <<mx<< std::endl;
+// 				std::cout << "mouse y: " <<my<< std::endl;
+				std::cout <<scale<<std::endl;
 			}
         };
         

@@ -30,7 +30,9 @@ namespace flake
         }
         void setView(int x,int y)
         {
-            view=generateView(x,y);
+			transx=x;
+			transy=y;
+            view=generateView(transx,transy);
         }
         void shiftView(int x,int y)
         {
@@ -40,7 +42,9 @@ namespace flake
         }
         void setSize(int x,int y)
         {
-            proj=generateProj(x,y);
+			sizex=x;
+			sizey=y;
+            proj=generateProj(sizex,sizey);
         }
         void fix_input(int &x,int& y)
         {
@@ -48,6 +52,12 @@ namespace flake
             x-=sizex/2;
             y-=sizey/2;
         }
+        void zoom(int factor)//10 = 10% zoom in ; -10 = 10% zoom out
+		{
+			sizex=sizex-sizex*factor/100;
+			sizey=sizey-sizey*factor/100;
+			proj=generateProj(sizex,sizey);
+		}
     private:
         glm::mat4 generateProj(float x,float y)
         {
