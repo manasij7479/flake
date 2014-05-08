@@ -29,19 +29,6 @@ int main()
         {
             if(eve.type==sf::Event::Closed)
                 f.close();
-//             if (eve.type == sf::Event::MouseButtonPressed)
-//             {
-//                 if (eve.mouseButton.button == sf::Mouse::Left)
-//                 {
-//                     int mx=eve.mouseButton.x;
-//                     int my=eve.mouseButton.y;
-//                     cam.fix_input(mx,my);
-//                     std::cout << "the right button was pressed" << std::endl;
-//                     std::cout << "mouse x: " <<mx<< std::endl;
-//                     std::cout << "mouse y: " <<my<< std::endl;
-//                 }
-//                 
-//             }
             else if (eve.type==sf::Event::MouseMoved)
 			{
 				int mx=eve.mouseMove.x;
@@ -65,7 +52,6 @@ int main()
 				
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
-					std::cout<<"Moved to: "<<mx<<' '<<my<<std::endl;
 					cam.shiftView(mx/scale,my/scale);
 				}
 				
@@ -80,12 +66,7 @@ int main()
 				cam.zoom(md*percent);
 				scale+=(scale*md*percent/100);
 				
-// 				cam.shiftView(md*mx*percent/100,md*my*percent/100);
 				
-// 				std::cout << "wheel movement: " <<md<< std::endl;
-// 				std::cout << "mouse x: " <<mx<< std::endl;
-// 				std::cout << "mouse y: " <<my<< std::endl;
-				std::cout <<scale<<std::endl;
 			}
         };
         
