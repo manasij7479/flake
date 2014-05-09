@@ -1,4 +1,5 @@
 #include "flake/gl/mesh.hpp"
+#include<fstream>
 namespace flake
 {
 	namespace gl
@@ -39,7 +40,7 @@ namespace flake
 				glGenBuffers(1,&vbo);
 				glBindBuffer(GL_ARRAY_BUFFER,vbo);
 				glBufferData(GL_ARRAY_BUFFER,buffer.data.size()*sizeof(GLfloat),data,GL_STATIC_DRAW);
-				GLint loc = glGetAttribLocation(prog->getHandle(),buffer.name.c_str());
+				GLint loc = prog->attribLocation(buffer.name);
 				glVertexAttribPointer(loc,n,GL_FLOAT,GL_FALSE,0,0);
 				glEnableVertexAttribArray(loc);
 				
@@ -53,6 +54,68 @@ namespace flake
 			glDrawElements(drawmode,isize,GL_UNSIGNED_INT,0);
 			glBindVertexArray(0);
 			glUseProgram(0);
+		}
+		Mesh* getMeshFromFile(std::string dataf,std::string v,std::string f)
+		{
+			std::map<std::string,GLenum> modeTable=
+			{
+				{"GL_QUADS",GL_QUADS},
+				{"GL_LINE_LOOP",GL_LINE_LOOP},
+				{"GL_LINES",GL_LINES},
+				{"GL_POINTS",GL_POINTS},
+				{"GL_LINE_STRIP",GL_LINE_STRIP},
+				{"GL_TRIANGLE_STRIP",GL_TRIANGLE_STRIP},
+				{"GL_TRIANGLE_FAN",GL_TRIANGLE_FAN},
+				{"GL_TRIANGLES",GL_TRIANGLES},
+				{"GL_QUAD_STRIP",GL_QUAD_STRIP},
+				{"GL_POLYGON",GL_POLYGON}
+			};
+			
+			std::ifstream dat(dataf);
+			if(!dat)
+				throw(std::runtime_error("File: "+dataf+" not found."));
+
+
+			std::vector<GLuint> idx;
+			std::vector<flake::gl::Buffer<GLfloat>> buffers;
+			GLenum drawmode;
+			std::string name;
+			while(dat>>name)
+			{
+				if(name=="index")
+				{
+					int x;
+					dat>>x;
+					for(int i=0;i<x;++i)
+					{
+						int temp;
+						dat>>temp;
+						idx.push_back(static_cast<GLuint>(temp));
+					}
+				}
+				else if(name=="draw")
+				{
+					std::string mode;
+					dat>>mode;
+					drawmode=modeTable[mode];
+				}
+				else
+				{
+					int m,n;
+					dat>>m>>n;
+					std::vector<GLfloat> data;
+					for(int i=0;i<m*n;++i)
+					{
+						GLfloat f;
+						dat>>f;
+						data.push_back(f);
+					}
+					flake::gl::Buffer<GLfloat> buf(name,data,n);
+					buffers.push_back(buf);
+				}
+			}
+			
+			return new Mesh(buffers,idx,v,f,drawmode);
 		}
 	}
 	

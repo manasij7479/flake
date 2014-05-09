@@ -3,6 +3,7 @@
 #include "shader.hpp"
 #include <vector>
 #include <type_traits>
+#include <stdexcept>
 #include <glm/glm.hpp>  
 namespace flake
 {
@@ -32,6 +33,18 @@ namespace flake
                 glm::vec4 v(x,y,z,w);
                 uniformVec4(v,name);
             };
+			
+			GLint attribLocation(std::string name)
+			{
+				if(name=="")
+					throw std::runtime_error("Null attrib name.");
+				Use use(handle);
+				GLint result = glGetAttribLocation(handle,name.c_str());
+				if(result==-1)
+					throw std::runtime_error(name+":Attrib name not found in program.");
+				return result;
+			}
+			
         private:
             GLuint handle;
             const std::vector<Shader>& shader_list;

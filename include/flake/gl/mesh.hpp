@@ -24,6 +24,9 @@ namespace flake
 			GLenum drawmode;
 			int isize;
 		};
+		
+		Mesh* getMeshFromFile(std::string dataf,std::string v,std::string f);
+		//Adapter for old mesh file from the old framework
 	}
 }
 #endif
