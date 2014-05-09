@@ -41,11 +41,15 @@ namespace flake
 				glBindBuffer(GL_ARRAY_BUFFER,vbo);
 				glBufferData(GL_ARRAY_BUFFER,buffer.data.size()*sizeof(GLfloat),data,GL_STATIC_DRAW);
 				GLint loc = prog->attribLocation(buffer.name);
-				glVertexAttribPointer(loc,n,GL_FLOAT,GL_FALSE,0,0);
 				glEnableVertexAttribArray(loc);
+				glVertexAttribPointer(loc,n,GL_FLOAT,GL_FALSE,0,0);
+				
+				glBindBuffer(GL_ARRAY_BUFFER, 0);
+				
 				
 				vbomap[buffer.name]=vbo;
 			}
+			glBindVertexArray(0);
 		}
 		void Mesh::draw()
 		{
