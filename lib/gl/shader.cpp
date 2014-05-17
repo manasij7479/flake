@@ -8,15 +8,15 @@ namespace flake
 {
     namespace gl
     {
-        Shader::Shader(GLenum Type,std::string filename)
-        {
-            shader_type = Type;
+		Shader::Shader(GLenum Type, const std::istream& input)
+		{
+			if(!input)
+				throw std::runtime_error("Bad shader input stream");
+			
+			shader_type = Type;
             
-            std::ifstream ifs(filename);
-            if(!ifs)
-                throw(std::runtime_error("File:"+filename+" not opened."));
             std::ostringstream stream;
-            stream<<ifs.rdbuf();
+            stream<<input.rdbuf();
             std::string strdata = stream.str();
             const GLchar* data = strdata.c_str();
             
@@ -41,6 +41,11 @@ namespace flake
                 
                 throw(std::runtime_error(strdata));
             }
+		}
+
+        Shader::Shader(GLenum Type,std::string filename):
+        Shader(Type,std::ifstream(filename))
+        {
         }
         Shader::~Shader()
         {
