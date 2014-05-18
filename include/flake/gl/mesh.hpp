@@ -13,6 +13,7 @@ namespace flake
 		public:
 			Mesh(std::vector<Buffer<GLfloat>> bufs,std::vector<GLuint> idx,
 				 std::string vsf,std::string fsf,GLenum dm);
+			Mesh(std::vector< flake::gl::Buffer< GLfloat > > bufs, std::vector< GLuint > idx, flake::gl::Shader vs, flake::gl::Shader fsf, GLenum dm);
 			void draw();
 			Program* getProgram(){return prog;}
 		private:

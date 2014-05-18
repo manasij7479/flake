@@ -1,6 +1,7 @@
 #include "flake/framework/display.hpp"
 #include "flake/framework/camera.hpp"
 #include "flake/gl/mesh.hpp"
+#include "flake/geometry/shape.hpp"
 #include <iostream>
 
 int main()
@@ -10,8 +11,13 @@ int main()
     flake::CenteredOrtho2D cam(x,y,0,0);
     
 //     mm::OldMesh* mesh=new mm::OldMesh("righttri","vert.glsl","frag.glsl");
-   auto mesh =flake::gl::getMeshFromFile("righttri","vert.glsl","frag.glsl"); 
-
+//    auto mesh =flake::gl::getMeshFromFile("righttri","vert.glsl","frag.glsl"); 
+	
+	std::vector<float> pts({0,0,0,1,1,0});
+	
+	glm::vec4 col={1,0,0,0};
+	auto triangle=new flake::Triangle(pts,col);
+	
     glClearColor(1,1,1,1);
     
 //     mesh->getProgram()->uniformMat4(c.getMatrix(),"camera");
@@ -22,8 +28,9 @@ int main()
     {
         glClear(GL_COLOR_BUFFER_BIT);
 		
-        mesh->getProgram()->uniformMat4(cam.getMatrix(),"camera");
-        mesh->draw();
+//         mesh->getProgram()->uniformMat4(cam.getMatrix(),"camera");
+//         mesh->draw();
+			triangle->draw();
 		
 		
         auto callback=[&](sf::Event eve)

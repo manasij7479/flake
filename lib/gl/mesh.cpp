@@ -4,17 +4,10 @@ namespace flake
 {
 	namespace gl
 	{
-		Mesh::Mesh(std::vector<Buffer<GLfloat>> bufs,std::vector<GLuint> idx,
-				 std::string vsf,std::string fsf,GLenum dm)
+		Mesh::Mesh(std::vector< Buffer< GLfloat > > bufs, std::vector< GLuint > idx, Shader vs, Shader fs, GLenum dm)
 		{
 			drawmode=dm;
-			prog=new Program
-			(
-				{
-					Shader(GL_VERTEX_SHADER,vsf),
-					Shader(GL_FRAGMENT_SHADER,fsf)
-				}
-			);
+			prog=new Program({vs,fs});
 			
 			glUseProgram(prog->getHandle());
 			glGenVertexArrays(1,&vao);
@@ -50,6 +43,12 @@ namespace flake
 				vbomap[buffer.name]=vbo;
 			}
 			glBindVertexArray(0);
+		}
+
+		Mesh::Mesh(std::vector<Buffer<GLfloat>> bufs,std::vector<GLuint> idx,
+				 std::string vsf,std::string fsf,GLenum dm):
+				 Mesh(bufs,idx,Shader(GL_VERTEX_SHADER,vsf),Shader(GL_FRAGMENT_SHADER,fsf),dm)
+		{
 		}
 		void Mesh::draw()
 		{
